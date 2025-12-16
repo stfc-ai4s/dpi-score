@@ -1,93 +1,222 @@
-# Deep Learning Based Protein Quality Score
-
-
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-* [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/ccpem/dpi.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-* [Set up project integrations](https://gitlab.com/ccpem/dpi/-/settings/integrations)
-
-## Collaborate with your team
-
-* [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+To avoid issues with python packages, we suggest to use conda environment
+```
+conda create -n dpi python=3.12
+conda activate dpi
+```
 
+All the experiments were done in Pytorch v2.2.2, so we recommend to use this version. Please see [Previous Pytorch Version](https://pytorch.org/get-started/previous-versions/) to install torch based on your Nvidia Driver version. 
+```
+# CUDA 11.8
+pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cu118
+# CUDA 12.1
+pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cu121
+# CPU only
+pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cpu
+```
+
+Now, install the DPI Package
+```
+git clone https://gitlab.com/ccpem/dip.git
+cd dip
+git checkout dpi_package_niraj_v1
+pip install -e .
+```
+
+## Download Models
+Download one of the model variant from [DPI Models](https://zenodo.org/records/15268284?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU5OWUzZDg3LWJkODAtNGRkZS05NzZlLTgzNjExZDIyYTNiOSIsImRhdGEiOnt9LCJyYW5kb20iOiJjYmYyN2RjNTlhOGY5MmM3NDRmMGVhNDIxNDEzNjk2MyJ9.EEDGLGU7UxzhyHLdvYEz_zIsIGKRDfVuLNBPowaQXnZzb_xJ0o9Dz1oBOGcF8uLLSyDUs9ZKXz4g7eZxLnkxXA)
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Single PDB File
+```
+dpi-inference --input </path/to/pdb> --model </path/to/model>
+```
+### Directory of PDB Files
+```
+dpi-inference --input </path/to/pdb_directory/> --model </path/to/model>
+```
+### Advance usage 
+```
+dpi-inference \
+    --input </path/to/pdb> \
+    --model_dir </path/to/model> \
+    --fold 1 \
+    --output_dir ./results \
+    --min_num_residues 10 \
+    --max_neighbors_dist 7 \
+    --gpu 0
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Command Line Arguments
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Required Arguments
+- `--input`: Path to PDB file or directory containing PDB files
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Model Arguments
+- `--model_dir`: Directory containing the trained model and config(default: `./models/dynamicgrids32_aug/`)
+- `--fold`: Which fold of the 5-fold cross-validated model to use (default: 1)
+- `--checkpoint`: Name of model checkpoint to load (one of `final_model_states` or `best_acc`)
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### Output Arguments
+- `--output_dir`: Directory to save results (default: `./results`)
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Filtering Parameters
+- `--min_num_residues`: Minimum residues required in a chain (default: 10)
+- `--max_neighbors_dist`: Maximum distance for neighbor search (default: 7.0 Å)
+- `--min_neighbors_chains`: Minimum chain length for neighbor search (default: 30)
+- `--max_num_chains`: Maximum number of chains per file (default: 30)
+- `--author`: Include author sequences if set
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### iAlign Parameters (Optional)
+- `--ialign_file`: Path to iAlign executable
+- `--ialign_cutoff`: IS-score cutoff for classification (default: 0.7)
+- `--irmsd`: Minimum RMSD threshold (default: 3.0)
 
-## License
-For open source projects, say how it is licensed.
+### GPU Acceleration
+- `--gpu`: GPU device ID to use for inference, if multi GPUs (default: 0)
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Example Usage
+
+### Example 1: Single PDB File
+```bash
+dpi-inference \
+    --input ./examples/H1157.pdb \
+    --model_dir ./models/dynamicgrids32 \
+    --output_dir ./results
+```
+
+### Example 2: Directory Processing
+```bash
+dpi-inference \
+    --input ./examples/ \
+    --model_dir ./models/dynamicgrids32 \
+    --output_dir ./results
+```
+
+### Example 3: Custom Model and Parameters
+```bash
+dpi-inference \
+    --input ./test_dir/ \
+    --model_dir ./models/custom_model/ \
+    --fold 2 \
+    --output_dir ./custom_results \
+    --max_neighbors_dist 8.0 \
+    --author
+```
+
+## Output Files
+
+The tool generates two main output files in the specified output directory:
+
+### 1. `inference_results.csv`
+
+This CSV file contains the prediction results for all interface that exist in each PDB with the following columns:
+
+| Column | Description |
+|--------|-------------|
+| `pdb` | PDB identifier/filename |
+| `interface` | Interface identifier (e.g., "A_B" for chains A and B) |
+| `y_logits` | Raw model output logits (softmax probabilities) |
+| `y_preds` | Class prediction (0 = negative interface, 1 = good interface) |
+| `dpi_score` | Our model score (0-1, <0.5 for negative interface otherwise positive) |
+
+**Example CSV content:**
+```csv
+pdb,interface,y_logits,y_preds,dpi_score
+H1157,A_B,"[1.1481278e-06 9.9999881e-01]",1,0.99
+H1217,G_C,"[6.9220896e-06 9.9999309e-01]",0,0.09
+```
+
+#### Field Explanations:
+- **y_logits**: Array of class probabilities [P(negative interfase), P(positive interface)]
+- **y_preds**: Class prediction 
+- **dpi_score**: Probability score (threshold at 0.5 probability), where higher value (>threshold) indicate positive interface otherwise negative interface.
+
+### 2. `meta_labels.json`
+
+This JSON file contains detailed metadata for each processed interface:
+
+```json
+{
+  "H1157_A_B": {
+    "pdb": "H1157",
+    "interface": "A_B",
+    "dir": "examples",
+    "label": -1,
+    "interface_residues":[
+     ["HIS663", "ILE461", ...],
+     ["GLU220", "GLU327" ... ]
+    ],
+    "is_scr": null,
+    "irmsd": null,
+  }
+}
+```
+
+#### Meta Labels Fields:
+- **pdb**: Original PDB filename/identifier
+- **interface**: Chain pair identifier (e.g., "A_B)
+- **dir**: Directory name of the pdb file
+- **label**: Ground truth class label (0 for negative interfaces or 1 for positive interface) obtained from is_scr and irmsd threshold if provided. 
+- **interface_residues**: List of residue sequence from each chain in the interface participating in the interaction.
+  - **sequence1**: List of amino acid sequence in the chain 1
+  - **sequence2**: List of amino acid sequence in the chain 2
+- **is_scr**: is_scr score from the ialgin file if provided
+- **irmsd**: iRMSD if ialign file if provided
+
+## Output Directory Structure
+If input is a directory e.g. `./examples`;
+```
+results/
+└── examples/
+    ├── inference_results.csv
+    └── meta_labels.json
+```
+
+If processing single pdb, e.g `H1157.pdb`:
+```
+results/
+└── H1157/
+    ├── inference_results.csv
+    └── meta_labels.json
+```
+
+## Interpretation of Results
+
+### DPI Score Interpretation:
+- **Above 0.5**: Positive (good) interface
+- **Below 0.5**: Negative (bad) interface
+
+### Binary Predictions:
+- **y_preds = 1**: Predicted class label for positive (good) interface.
+- **y_preds = 0**: Predicted class label for negative (bad) interface.
+
+## Troubleshooting
+
+### Common Issues:
+
+1. **No valid interfaces found**: 
+   - Check if PDB file contains multiple chains
+   - Reduce `--min_num_residues` parameter
+   - Increase `--max_neighbors_dist` parameter
+
+2. **CUDA out of memory**:
+   - Use `--gpu -1` to run on CPU
+   - Process files individually instead of in batches
+
+3. **Model not found**:
+   - Ensure `--model_dir` points to correct model directory
+   - Check that the specified `--fold` exists
+   - Verify `--checkpoint` name is correct
+
+### Performance Notes:
+- GPU processing is significantly faster than CPU
+- Processing time depends on protein size and number of interfaces
+- Large complexes with many chains will take longer to process
+
+## Model Information
+
+The default model uses:
+- Dynamic grid-based representation
+- 3D CNN model trained on the five-fold PDB datasets (default K=1)
+
+For any other questions and issues, please mail to (niraj.bhujel@stfc.ac.uk).

@@ -1,0 +1,54 @@
+# Ignore everything by default
+*
+
+# But don't ignore these files and folders
+!README.md
+!pyproject.toml
+!dpi/             # Git to "see" the folder, its contents are still ignored 
+!dpi/*.py         # allow top-level Python files
+!dpi/**/*.py      # (optional) allow all Python files recursively
+
+# Don't ignore .gitignore itself
+!.gitignore
+
+# Torch models
+*.pth
+
+# C extensions
+*.so
+
+# log stuff:
+*.log
+
+
+# Pycache
+**/__pycache__
+**/*.pyc
+
+# Jupyter Notebook
+*.ipynb
+**/__.ipynb_checkpoints
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Build output
+dist/
+build/
+*.egg-info/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["dpi*"]
+exclude = ["tests"]
+namespaces = false
+
+[project]
+name = "dpi"
+version = "1.0"
+description = "CCP-EM DPIScore"
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "gemmi==0.7.3",
+    "h5py==3.13.0",
+    "numpy==1.26.0",
+    "omegaconf==2.3.0",
+    "pandas==2.3.2",
+    "scikit_learn==1.7.1",
+    "scipy==1.16.1",
+    "scikit-image==0.25.1",
+    "tqdm==4.67.1",
+]
+
+[project.scripts]
+dpi-inference = "dpi.inference:main"
