@@ -25,11 +25,11 @@ Download one of the model variant from [DPI Models](https://zenodo.org/records/1
 
 ## Usage
 You can specify a single file either in .pdb format, or specify a directory containing .pdb files. Optionally, it can also support .cif files. 
-### Single PDB File
+Single PDB File
 ```
 dpi-inference --input </path/to/pdb> --model </path/to/model>
 ```
-### Directory of PDB Files
+Directory of PDB Files
 ```
 dpi-inference --input </path/to/pdb_directory/> --model </path/to/model>
 ```
