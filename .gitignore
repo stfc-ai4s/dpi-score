@@ -1,6 +1,7 @@
 # Torch models
 *.pth
 models/*
+results/*
 
 # C extensions
 *.so

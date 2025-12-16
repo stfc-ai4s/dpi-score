@@ -198,9 +198,9 @@ results/
    - Verify `--checkpoint` name is correct
 
 4. **Interfaces not found**
-  - Increase the `--max_neighbors_dist`
-  - Decrease the `--min_neighbors_chains`
-  - Decrease the `--min_num_residues` 
+    - Increase the `--max_neighbors_dist`
+    - Decrease the `--min_neighbors_chains`
+    - Decrease the `--min_num_residues` 
 
 ### Performance Notes:
 - GPU processing is significantly faster than CPU
