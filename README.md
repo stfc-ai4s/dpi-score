@@ -9,9 +9,7 @@ We ran our experiments in Nvidia V100 using CUDA11.8 and Pytorch v2.2.2. If your
 ```
 # CUDA 11.8
 pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cu118
-# CUDA 12.1
-pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cu121
-# CPU only
+# For CPU only
 pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cpu
 ```
 
@@ -26,7 +24,7 @@ pip install -e .
 Download one of the model variant from [DPI Models](https://zenodo.org/records/15268284?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU5OWUzZDg3LWJkODAtNGRkZS05NzZlLTgzNjExZDIyYTNiOSIsImRhdGEiOnt9LCJyYW5kb20iOiJjYmYyN2RjNTlhOGY5MmM3NDRmMGVhNDIxNDEzNjk2MyJ9.EEDGLGU7UxzhyHLdvYEz_zIsIGKRDfVuLNBPowaQXnZzb_xJ0o9Dz1oBOGcF8uLLSyDUs9ZKXz4g7eZxLnkxXA) from Zenodo and save it to the `model` directory. 
 
 ## Usage
-You can specify a single file either in .pdb format, or specify a directory containing .pdb files. It can also support .cif files. 
+You can specify a single file either in .pdb format, or specify a directory containing .pdb files. Optionally, it can also support .cif files. 
 ### Single PDB File
 ```
 dpi-inference --input </path/to/pdb> --model </path/to/model>
@@ -53,9 +51,9 @@ dpi-inference \
 - `--input`: Path to PDB file or directory containing PDB files
 
 ### Model Arguments
-- `--model_dir`: Directory containing the trained model and config(default: `./models/dynamicgrids32_aug/`)
+- `--model_dir`: Directory containing the trained model and config(default: `./models/dynamicgrids_aug/`)
 - `--fold`: Which fold of the 5-fold cross-validated model to use (default: 1)
-- `--checkpoint`: Name of model checkpoint to load (one of `final_model_states` or `best_acc`)
+- `--checkpoint`: Name of model checkpoint to load (default to K=2 model `model_k2`)
 
 ### Output Arguments
 - `--output_dir`: Directory to save results (default: `./results`)
@@ -77,23 +75,23 @@ dpi-inference \
 
 ## Example Usage
 
-### Example 1: Single PDB File
+### Single PDB File
 ```bash
 dpi-inference \
     --input ./examples/H1157.pdb \
-    --model_dir ./models/dynamicgrids32 \
+    --model_dir ./models/dynamicgrids_aug \
     --output_dir ./results
 ```
 
-### Example 2: Directory Processing
+### Directory Processing
 ```bash
 dpi-inference \
     --input ./examples/ \
-    --model_dir ./models/dynamicgrids32 \
+    --model_dir ./models/dynamicgrids_aug \
     --output_dir ./results
 ```
 
-### Example 3: Custom Model and Parameters
+### Custom Model and Parameters
 ```bash
 dpi-inference \
     --input ./test_dir/ \
@@ -106,7 +104,7 @@ dpi-inference \
 
 ## Output Files
 
-The tool generates two main output files in the specified output directory:
+The tool generates two main output files in the specified output (default `results`) directory:
 
 ### 1. `inference_results.csv`
 
@@ -116,21 +114,20 @@ This CSV file contains the prediction results for all interface that exist in ea
 |--------|-------------|
 | `pdb` | PDB identifier/filename |
 | `interface` | Interface identifier (e.g., "A_B" for chains A and B) |
-| `y_logits` | Raw model output logits (softmax probabilities) |
-| `y_preds` | Class prediction (0 = negative interface, 1 = good interface) |
 | `dpi_score` | Our model score (0-1, <0.5 for negative interface otherwise positive) |
 
 **Example CSV content:**
 ```csv
-pdb,interface,y_logits,y_preds,dpi_score
-H1157,A_B,"[1.1481278e-06 9.9999881e-01]",1,0.99
-H1217,G_C,"[6.9220896e-06 9.9999309e-01]",0,0.09
+pdb,interface,dpi_score
+H1157,A_B,0.99
 ```
 
-#### Field Explanations:
-- **y_logits**: Array of class probabilities [P(negative interfase), P(positive interface)]
-- **y_preds**: Class prediction 
-- **dpi_score**: Probability score (threshold at 0.5 probability), where higher value (>threshold) indicate positive interface otherwise negative interface.
+## Interpretation of Results
+
+### DPI Score Interpretation:
+- **Above 0.5**: Positive (good) interface
+- **Below 0.5**: Negative (bad) interface
+
 
 ### 2. `meta_labels.json`
 
@@ -181,15 +178,6 @@ results/
     └── meta_labels.json
 ```
 
-## Interpretation of Results
-
-### DPI Score Interpretation:
-- **Above 0.5**: Positive (good) interface
-- **Below 0.5**: Negative (bad) interface
-
-### Binary Predictions:
-- **y_preds = 1**: Predicted class label for positive (good) interface.
-- **y_preds = 0**: Predicted class label for negative (bad) interface.
 
 ## Troubleshooting
 
@@ -209,15 +197,23 @@ results/
    - Check that the specified `--fold` exists
    - Verify `--checkpoint` name is correct
 
+4. **Interfaces not found**
+  - Increase the `--max_neighbors_dist`
+  - Decrease the `--min_neighbors_chains`
+  - Decrease the `--min_num_residues` 
+
 ### Performance Notes:
 - GPU processing is significantly faster than CPU
 - Processing time depends on protein size and number of interfaces
 - Large complexes with many chains will take longer to process
 
+
 ## Model Information
 
 The default model uses:
-- Dynamic grid-based representation
-- 3D CNN model trained on the five-fold PDB datasets (default K=1)
+- Dynamic grid-based representation with rotation augmentations
+- 3D CNN model trained on the five-fold PDB datasets (default K=2)
+
+
 
 For any other questions and issues, please mail to (niraj.bhujel@stfc.ac.uk).
