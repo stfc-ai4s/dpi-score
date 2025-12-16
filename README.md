@@ -38,7 +38,7 @@ dpi-inference --input </path/to/pdb_directory/> --model </path/to/model>
 dpi-inference \
     --input </path/to/pdb> \
     --model_dir </path/to/model> \
-    --fold 1 \
+    --checkpoint model_k2 \
     --output_dir ./results \
     --min_num_residues 10 \
     --max_neighbors_dist 7 \
@@ -52,7 +52,6 @@ dpi-inference \
 
 ### Model Arguments
 - `--model_dir`: Directory containing the trained model and config(default: `./models/dynamicgrids_aug/`)
-- `--fold`: Which fold of the 5-fold cross-validated model to use (default: 1)
 - `--checkpoint`: Name of model checkpoint to load (default to K=2 model `model_k2`)
 
 ### Output Arguments
@@ -80,6 +79,7 @@ dpi-inference \
 dpi-inference \
     --input ./examples/H1157.pdb \
     --model_dir ./models/dynamicgrids_aug \
+    --checkpoint model_k2 \
     --output_dir ./results
 ```
 
@@ -88,6 +88,7 @@ dpi-inference \
 dpi-inference \
     --input ./examples/ \
     --model_dir ./models/dynamicgrids_aug \
+    --checkpoint model_k2 \
     --output_dir ./results
 ```
 
@@ -96,7 +97,7 @@ dpi-inference \
 dpi-inference \
     --input ./test_dir/ \
     --model_dir ./models/custom_model/ \
-    --fold 2 \
+    --checkpoint model.pth \
     --output_dir ./custom_results \
     --max_neighbors_dist 8.0 \
     --author
@@ -185,7 +186,7 @@ results/
 
 1. **No valid interfaces found**: 
    - Check if PDB file contains multiple chains
-   - Reduce `--min_num_residues` parameter
+   - Reduce `--min_num_residues` or `--min_neighbors_chains` parameter
    - Increase `--max_neighbors_dist` parameter
 
 2. **CUDA out of memory**:
@@ -194,13 +195,7 @@ results/
 
 3. **Model not found**:
    - Ensure `--model_dir` points to correct model directory
-   - Check that the specified `--fold` exists
-   - Verify `--checkpoint` name is correct
-
-4. **Interfaces not found**
-    - Increase the `--max_neighbors_dist`
-    - Decrease the `--min_neighbors_chains`
-    - Decrease the `--min_num_residues` 
+   - Check that the specified `--checkpoint` exists
 
 ### Performance Notes:
 - GPU processing is significantly faster than CPU
@@ -211,9 +206,7 @@ results/
 ## Model Information
 
 The default model uses:
-- Dynamic grid-based representation with rotation augmentations
-- 3D CNN model trained on the five-fold PDB datasets (default K=2)
-
+- Dynamic grid-based representation with rotation augmentations (DPI-IV)
 
 
 For any other questions and issues, please mail to (niraj.bhujel@stfc.ac.uk).
