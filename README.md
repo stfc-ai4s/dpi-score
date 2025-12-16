@@ -5,7 +5,7 @@ conda create -n dpi python=3.12
 conda activate dpi
 ```
 
-All the experiments were done in Pytorch v2.2.2, so we recommend to use this version. Please see [Previous Pytorch Version](https://pytorch.org/get-started/previous-versions/) to install torch based on your Nvidia Driver version. 
+We ran our experiments in Nvidia V100 using CUDA11.8 and Pytorch v2.2.2. If your CUDA version is different, please see [Previous Pytorch Version](https://pytorch.org/get-started/previous-versions/) for Pytorch installations. 
 ```
 # CUDA 11.8
 pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cu118
@@ -17,14 +17,14 @@ pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https
 
 Now, install the DPI Package
 ```
-git clone https://gitlab.com/ccpem/dip.git
-cd dip
-git checkout dpi_package_niraj_v1
+git clone https://gitlab.com/ccpem/dpi.git
+cd dpi
 pip install -e .
 ```
 
-## Download Models
+## Download DPI Models
 Download one of the model variant from [DPI Models](https://zenodo.org/records/15268284?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU5OWUzZDg3LWJkODAtNGRkZS05NzZlLTgzNjExZDIyYTNiOSIsImRhdGEiOnt9LCJyYW5kb20iOiJjYmYyN2RjNTlhOGY5MmM3NDRmMGVhNDIxNDEzNjk2MyJ9.EEDGLGU7UxzhyHLdvYEz_zIsIGKRDfVuLNBPowaQXnZzb_xJ0o9Dz1oBOGcF8uLLSyDUs9ZKXz4g7eZxLnkxXA)
+
 ## Usage
 ### Single PDB File
 ```

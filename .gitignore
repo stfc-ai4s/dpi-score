@@ -1,16 +1,3 @@
-# Ignore everything by default
-*
-
-# But don't ignore these files and folders
-!README.md
-!pyproject.toml
-!dpi/             # Git to "see" the folder, its contents are still ignored 
-!dpi/*.py         # allow top-level Python files
-!dpi/**/*.py      # (optional) allow all Python files recursively
-
-# Don't ignore .gitignore itself
-!.gitignore
-
 # Torch models
 *.pth
 
