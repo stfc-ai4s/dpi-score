@@ -161,20 +161,15 @@ def run(args):
         with torch.no_grad():
             model_preds = model(model_inputs)
             
-        y_logits = F.softmax(model_preds, dim=-1).squeeze().cpu().numpy()
-        y_probs = np.max(y_logits, axis=-1)
-        y_preds = 1 if y_probs >= 0.5 else 0
-        # Scale the score to 0-1 
-        dpi_score = y_preds*y_probs + (1-y_preds)*(1-y_probs)
-        print(f"Interface: {pdb_intf}, pred_class: {y_preds}, dpi_score: {dpi_score:.2f}, inference time: {time.time()-inference_start:.3f} secs")
+        y_probs = F.softmax(model_preds, dim=-1).squeeze().cpu().numpy()
+        dpi_score = y_probs[1]
+        print(f"Interface: {pdb_intf}, dpi_score: {min(dpi_score, 0.999):.3f}, inference time: {time.time()-inference_start:.3f} secs")
 
         pdb_intf_info = processor.meta_dict.get(pdb_intf, {})
         
         predictions.append(dict(
             pdb = pdb_intf_info.get('pdb', None),
             interface=pdb_intf_info.get('interface', None),
-            y_logits=y_logits,
-            y_preds = y_preds,
             dpi_score = dpi_score,
             )
         )
@@ -202,11 +197,11 @@ def main():
     parser.add_argument("--input", type=absolute_path, default='./examples',
                         help="Path to PDB directory, where pdb files are located (relative to root dir)."
                        )
-    parser.add_argument('--model_dir', type=absolute_path, default='./models/dynamicgrids32_aug',
-                        help='Directory/Path where the saved model which is to be used for inference (default fold=1)'
+    parser.add_argument('--model_dir', type=absolute_path, default='./models/dynamicgrids_aug',
+                        help='Directory/Path where the trained models are located'
                        )
-    parser.add_argument("--checkpoint", type=str, default='final_model_states',
-                        help="Name of model checkpoint to load."
+    parser.add_argument("--checkpoint", type=str, default='model_k2',
+                        help="Name of model checkpoint to load (default to fold 2)."
                        )
     # Ialign
     parser.add_argument("--ialign_file", type=str,
