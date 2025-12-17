@@ -1,0 +1,22 @@
+"net:\n  type: CNN\n  hidden_dim: 256\n  drop: 0.2\n  drop_head: 0.0\n  pool: avg\n\
+  rng:\n  seed: 42\n  torch_seed: 42\noptim:\n  lr: 0.0003\n  lr_min: 1.0e-06\n  lr_scheduler:\
+  \ reduceonplateau\n  lr_patience: 1\n  lr_reduce_factor: 0.9\n  lr_monitor: val/loss\n\
+  \  lr_mode: min\n  lr_adjust: false\n  lr_adjust_rule: ''\n  warmup_epochs: 0\n\
+  \  weight_decay: 0.005\n  weight_decay_end: 0.05\n  clip_grad_norm: 1.5\nloss:\n\
+  \  bce:\n    weight: 1\n    learn_weight: false\n    class_weights: null\n    label_smoothing:\
+  \ 0.0\n  mse:\n    weight: 0\n    learn_weight: false\n  scl:\n    weight: 0\n \
+  \   learn_weight: false\n    temperature: 0.1\n  cluster:\n    weight: 0\n    learn_weight:\
+  \ false\ndata:\n  dataset_type: GridDataset\n  data_dir: ../data\n  train_dataset:\
+  \ PDB\n  test_dataset: LUC\n  feature_dir: features\n  max_atoms: 700\n  atom_features:\n\
+  \  - x\n  - 'y'\n  - z\n  - C\n  - 'N'\n  - O\n  - S\n  num_class: 2\n  class_balance:\
+  \ null\n  dock_pos: true\n  split: 0.8\n  folds: 5\n  curr_fold: 0\n  prefetch:\
+  \ false\n  preprocess: false\n  grid_type: dynamicgrids\n  meta_file: meta_labels.json\n\
+  \  grid_size: 32\n  grid_features:\n  - C\n  - 'N'\n  - O\n  - S\n  - steric_clash\n\
+  \  aug_rot:\n    angle: 60\n    times:\n    - 2\n    - 2\n  aug_scale:\n    factor:\
+  \ 1.1\n    prob: 1.1\ntrain:\n  epochs: 200\n  batch_size: 16\n  num_workers: 16\n\
+  \  gpu: 0\n  ddp: false\n  dist_run: false\n  resume_training: false\n  single_batch:\
+  \ false\n  debug: false\n  verbose: 0\n  eval_interval: 5\n  early_stop_metric:\
+  \ val/loss\n  early_stop_mode: min\n  early_stop_warmup: 5\n  early_stop_patience:\
+  \ 5\n  monitor: val/acc\n  monitor_mode: max\n  reset_head_steps: null\n  network_in:\
+  \ null\nexp:\n  name: exp6\n  session: 7\n  log_dir: ../logs\n  exp_dir: ../logs/session7/exp6_PDB_CNN_bs16_folds5_CNOSsteric_clash_dynamicgrids_32_rot2_2_scale1.1_dockposTrue\n\
+  \  ckpt_dir: null\n  ckpt_name: best_acc\n  summary_dir: null\n  overwrite: true\n"

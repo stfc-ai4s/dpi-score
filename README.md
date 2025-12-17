@@ -24,7 +24,8 @@ pip install -e .
 Download one of the model variant from [DPI Models](https://zenodo.org/records/15268284?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU5OWUzZDg3LWJkODAtNGRkZS05NzZlLTgzNjExZDIyYTNiOSIsImRhdGEiOnt9LCJyYW5kb20iOiJjYmYyN2RjNTlhOGY5MmM3NDRmMGVhNDIxNDEzNjk2MyJ9.EEDGLGU7UxzhyHLdvYEz_zIsIGKRDfVuLNBPowaQXnZzb_xJ0o9Dz1oBOGcF8uLLSyDUs9ZKXz4g7eZxLnkxXA) from Zenodo and save it to the `model` directory. 
 
 ## Usage
-You can specify a single file either in .pdb format, or specify a directory containing .pdb files. Optionally, it can also support .cif files. 
+You can specify a single file either in .pdb format, or specify a directory containing .pdb files. Optionally, it also support .cif files. 
+
 Single PDB File
 ```
 dpi-inference --input </path/to/pdb> --model </path/to/model>
@@ -123,9 +124,8 @@ pdb,interface,dpi_score
 H1157,A_B,0.99
 ```
 
-## Interpretation of Results
+### Interpretation of DPI Score
 
-### DPI Score Interpretation:
 - **Above 0.5**: Positive (good) interface
 - **Below 0.5**: Negative (bad) interface
 
