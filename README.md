@@ -20,8 +20,6 @@ cd dpi
 pip install -e .
 ```
 
-## Download DPI Models
-Download one of the model variant from [DPI Models](https://zenodo.org/records/15268284?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU5OWUzZDg3LWJkODAtNGRkZS05NzZlLTgzNjExZDIyYTNiOSIsImRhdGEiOnt9LCJyYW5kb20iOiJjYmYyN2RjNTlhOGY5MmM3NDRmMGVhNDIxNDEzNjk2MyJ9.EEDGLGU7UxzhyHLdvYEz_zIsIGKRDfVuLNBPowaQXnZzb_xJ0o9Dz1oBOGcF8uLLSyDUs9ZKXz4g7eZxLnkxXA) from Zenodo and save it to the `model` directory. 
 
 ## Usage
 You can specify a single file either in .pdb format, or specify a directory containing .pdb files. Optionally, it also support .cif files. 
@@ -207,6 +205,8 @@ results/
 
 The default model uses:
 - Dynamic grid-based representation with rotation augmentations (DPI-IV)
+
+Trained weights for all other model variants (DPI-I, DPI-II and DPI-III) can be downloaded from Zenodo [DPI Models](https://zenodo.org/records/15268284?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU5OWUzZDg3LWJkODAtNGRkZS05NzZlLTgzNjExZDIyYTNiOSIsImRhdGEiOnt9LCJyYW5kb20iOiJjYmYyN2RjNTlhOGY5MmM3NDRmMGVhNDIxNDEzNjk2MyJ9.EEDGLGU7UxzhyHLdvYEz_zIsIGKRDfVuLNBPowaQXnZzb_xJ0o9Dz1oBOGcF8uLLSyDUs9ZKXz4g7eZxLnkxXA) 
 
 
 For any other questions and issues, please mail to (niraj.bhujel@stfc.ac.uk).
