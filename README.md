@@ -210,9 +210,10 @@ Trained weights for all other model variants (DPI-I, DPI-II and DPI-III) can be 
 
 
 ## Contributors
-Niraj Bhujel, AI4S, SCD-STFC, UKRI (niraj.bhujel@stfc.ac.uk)
-Sony Malhotra, CCP-EM, SCD-STFC, UKRI (sony.malhotra@stfc.ac.uk)
-Tamilarasan Sabapathy, AI4S, SCD-STFC, UKRI (tamilarasan.sabapathy@stfc.ac.uk)
-Nicholas Whyatt, CCP-EM, SCD-STFC, UKRI (nicholas.whyatt@stfc.ac.uk)
 
-For any other questions and issues, please mail to (niraj.bhujel@stfc.ac.uk).
+- Niraj Bhujel, AI4S, SCD-STFC, UKRI (niraj.bhujel@stfc.ac.uk)
+- Nicholas Whyatt, CCP-EM, SCD-STFC, UKRI (nicholas.whyatt@stfc.ac.uk)
+- Sony Malhotra, CCP-EM, SCD-STFC, UKRI (sony.malhotra@stfc.ac.uk)
+- Tamilarasan Sabapathy, AI4S, SCD-STFC, UKRI (tamilarasan.sabapathy@stfc.ac.uk)
+
+For any other questions and issues, please mail to (sony.malhotra@stfc.ac.uk).
