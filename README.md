@@ -209,4 +209,10 @@ The default model uses:
 Trained weights for all other model variants (DPI-I, DPI-II and DPI-III) can be downloaded from Zenodo [DPI Models](https://zenodo.org/records/15268284?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU5OWUzZDg3LWJkODAtNGRkZS05NzZlLTgzNjExZDIyYTNiOSIsImRhdGEiOnt9LCJyYW5kb20iOiJjYmYyN2RjNTlhOGY5MmM3NDRmMGVhNDIxNDEzNjk2MyJ9.EEDGLGU7UxzhyHLdvYEz_zIsIGKRDfVuLNBPowaQXnZzb_xJ0o9Dz1oBOGcF8uLLSyDUs9ZKXz4g7eZxLnkxXA) 
 
 
+## Contributors
+Niraj Bhujel, AI4S, SCD-STFC, UKRI (niraj.bhujel@stfc.ac.uk)
+Sony Malhotra, CCP-EM, SCD-STFC, UKRI (sony.malhotra@stfc.ac.uk)
+Tamilarasan Sabapathy, AI4S, SCD-STFC, UKRI (tamilarasan.sabapathy@stfc.ac.uk)
+Nicholas Whyatt, CCP-EM, SCD-STFC, UKRI (nicholas.whyatt@stfc.ac.uk)
+
 For any other questions and issues, please mail to (niraj.bhujel@stfc.ac.uk).
